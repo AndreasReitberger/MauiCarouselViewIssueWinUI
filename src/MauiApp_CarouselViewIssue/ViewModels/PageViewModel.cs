@@ -33,6 +33,10 @@ namespace MauiApp_CollectionViewIssue.ViewModels
 
         [ObservableProperty]
         ThemeColorInfo selectedColor;
+        partial void OnSelectedColorChanged(ThemeColorInfo value)
+        {
+            // Breakpoint here  
+        }
         #endregion
 
         #region Constructor, LoadSettings
@@ -50,6 +54,7 @@ namespace MauiApp_CollectionViewIssue.ViewModels
         {
             DefaultColors = new()
             {
+                new ThemeColorInfo() { ThemeName = Colors.Gold.ToHex(), PrimaryColor = Colors.Gold },
                 new ThemeColorInfo() { ThemeName = Colors.Gray.ToHex(), PrimaryColor = Colors.Gray },
                 new ThemeColorInfo() { ThemeName = Colors.Brown.ToHex(), PrimaryColor = Colors.Brown },
                 new ThemeColorInfo() { ThemeName = Colors.Green.ToHex(), PrimaryColor = Colors.Green },
@@ -63,11 +68,8 @@ namespace MauiApp_CollectionViewIssue.ViewModels
                 new ThemeColorInfo() { ThemeName = Colors.Beige.ToHex(), PrimaryColor = Colors.Beige },
                 new ThemeColorInfo() { ThemeName = Colors.Violet.ToHex(), PrimaryColor = Colors.Violet },
                 new ThemeColorInfo() { ThemeName = Colors.Silver.ToHex(), PrimaryColor = Colors.Silver },
-                new ThemeColorInfo() { ThemeName = Colors.Gold.ToHex(), PrimaryColor = Colors.Gold },
             };
-            SelectedColor =
-                DefaultColors?.FirstOrDefault(theme => theme.PrimaryColor?.ToArgbHex() == HexColorCode) ??
-                DefaultColors?.FirstOrDefault();
+            SelectedColor = DefaultColors?.FirstOrDefault();
         }
         #endregion
 
