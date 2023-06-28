@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="MauiApp_CollectionViewIssue.MainPage"
+    
+    xmlns:viewModels="clr-namespace:MauiApp_CollectionViewIssue.ViewModels"
+    
+    xmlns:theme="clr-namespace:AndreasReitberger.Shared.Core.Theme;assembly=SharedMauiCoreLibrary"
+    xmlns:convertersShared="clr-namespace:AndreasReitberger.Shared.Core.Converters;assembly=SharedMauiCoreLibrary" 
+    xmlns:icons="clr-namespace:AndreasReitberger.Shared.FontIcons;assembly=SharedMauiXamlStylesLibrary"
+    
+    x:DataType="viewModels:PageViewModel"
+    >
+    <ContentPage.Resources>
+        <DataTemplate x:Key="ThemeColorInfoItemTemplate" x:DataType="theme:ThemeColorInfo">
+            <Grid>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="CurrentItem">
+                            <VisualState.Setters>
+                                <Setter Property="Rotation" Value="0" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="PreviousItem">
+                            <VisualState.Setters>
+                                <Setter Property="Rotation" Value="-10" />
+                                <Setter Property="Opacity" Value="0.35" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="NextItem">
+                            <VisualState.Setters>
+                                <Setter Property="Rotation" Value="10" />
+                                <Setter Property="Opacity" Value="0.35" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="DefaultItem">
+                            <VisualState.Setters>
+                                <Setter Property="Opacity" Value="0.25" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <Border
+                    StrokeShape="RoundRectangle 20"
+                    StrokeThickness="0"
+                    Margin="0,10"
+                    BackgroundColor="{Binding PrimaryColor}"
+                    >
+                    <Border.Shadow>
+                        <Shadow 
+                        Opacity="0.5"
+                        Radius="12"
+                        Offset="0, 12"
+                        />
+                    </Border.Shadow>
+                    <Grid
+                    RowDefinitions="Auto,*"
+                    >
+                        <Label
+                        TextColor="{Binding PrimaryColor, Converter={StaticResource ColorToBlackWhiteConverter}}"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"
+                        Margin="10,20"
+                        >
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding ThemeName}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                            <Label.Style>
+                                <Style TargetType="Label" BasedOn="{StaticResource PrimaryHeadlineLabelStyle}">
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                        TargetType="Label"
+                                        Binding="{Binding IsAppDefault}"
+                                        Value="True">
+                                            <Setter Property="FormattedText">
+                                                <FormattedString>
+                                                    <Span Text="{Binding ThemeName}" />
+                                                    <Span Text=" (" FontSize="Small" />
+                                                    <Span Text="Default" FontSize="Small" />
+                                                    <Span Text=")" FontSize="Small" />
+                                                </FormattedString>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                        </Label>
+                        <VerticalStackLayout
+                        Grid.Row="1"
+                            >
+                            <Label
+                                Text="PrimaryColor"
+                                TextColor="{Binding PrimaryColor, Converter={StaticResource ColorToBlackWhiteConverter}}"
+                                VerticalTextAlignment="Center"
+                                HorizontalTextAlignment="Center"
+                                Margin="10,8"
+                                />
+                            <Label
+                                Text="{Binding PrimaryColor, Converter={StaticResource ColorToStringConverter}}"
+                                TextColor="{Binding PrimaryColor, Converter={StaticResource ColorToBlackWhiteConverter}}"
+                                VerticalTextAlignment="Center"
+                                HorizontalTextAlignment="Center"
+                                Margin="10,8"
+                                />
+
+                            <Border
+                                StrokeShape="RoundRectangle 10"
+                                StrokeThickness="0"
+                                Margin="20,10"
+                                BackgroundColor="{Binding PrimaryLigtherColor}"
+                                >
+                                <VerticalStackLayout>
+                                    <Label
+                                        Text="PrimaryColorLighter"
+                                        TextColor="{Binding PrimaryLigtherColor, Converter={StaticResource ColorToBlackWhiteConverter}}"
+                                        VerticalTextAlignment="Center"
+                                        HorizontalTextAlignment="Center"
+                                        Margin="10,8"
+                                        />
+                                    <Label
+                                        Text="{Binding PrimaryLigtherColor, Converter={StaticResource ColorToStringConverter}}"
+                                        TextColor="{Binding PrimaryLigtherColor, Converter={StaticResource ColorToBlackWhiteConverter}}"
+                                        VerticalTextAlignment="Center"
+                                        HorizontalTextAlignment="Center"
+                                        Margin="10,8"
+                                        />
+                                </VerticalStackLayout>
+                            </Border>
+                            <Border
+                                StrokeShape="RoundRectangle 10"
+                                StrokeThickness="0"
+                                Margin="20,10"
+                                BackgroundColor="{Binding PrimaryDarkerColor}"
+                                >
+                                <VerticalStackLayout>
+                                    <Label
+                                        Text="PrimaryColorDarker"
+                                        TextColor="{Binding PrimaryDarkerColor, Converter={StaticResource ColorToBlackWhiteConverter}}"
+                                        VerticalTextAlignment="Center"
+                                        HorizontalTextAlignment="Center"
+                                        Margin="10,8"
+                                        />
+                                    <Label
+                                        Text="{Binding PrimaryDarkerColor, Converter={StaticResource ColorToStringConverter}}"
+                                        TextColor="{Binding PrimaryDarkerColor, Converter={StaticResource ColorToBlackWhiteConverter}}"
+                                        VerticalTextAlignment="Center"
+                                        HorizontalTextAlignment="Center"
+                                        Margin="10,8"
+                                        />
+                                </VerticalStackLayout>
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+            </Grid>
+        </DataTemplate>
+    </ContentPage.Resources>
+    <!-- Content -->
+    <Grid
+        CompressedLayout.IsHeadless="true"
+        ColumnDefinitions="*,48"
+        RowDefinitions="Auto,*,Auto"
+        >
+        <!-- Header -->
+        <VerticalStackLayout   
+            Padding="16,8"
+            Spacing="0"
+            CompressedLayout.IsHeadless="true"
+            >
+            <Label
+                Margin="16,8"
+                Text="CarouselView Windows Test"
+                TextColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray100}}"
+                HorizontalTextAlignment="Start" 
+                />
+            <BoxView />
+        </VerticalStackLayout>
+
+        <!-- Close Button -->
+        <Button 
+            AutomationId="btnCloseAdjustPrivacyModalPage"
+            Grid.Column="1"
+            Command="{Binding SaveCommand}"
+            Text="{x:Static icons:MaterialIcons.Close}" 
+            Style="{StaticResource IconButtonStyle}"
+            />
+
+        <!-- Main Content -->
+        <Grid
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Padding="20, 0, 0, 0">
+
+            <CarouselView
+                ItemsSource="{Binding DefaultColors}" 
+                CurrentItem="{Binding SelectedColor}"
+                PeekAreaInsets="40"
+                Margin="0, 40"
+                ItemTemplate="{StaticResource ThemeColorInfoItemTemplate}"
+                >
+                <CarouselView.ItemsLayout>
+                    <LinearItemsLayout 
+                            SnapPointsAlignment="Center"
+                            SnapPointsType="MandatorySingle"
+                            Orientation="Horizontal"  
+                            ItemSpacing="20" />
+                </CarouselView.ItemsLayout>
+            </CarouselView>
+        </Grid>
+
+        <!-- Tag line - Apply Button -->
+        <Button
+            Grid.ColumnSpan="2"
+            Grid.Row="2" 
+            Margin="20,6,20,20"
+            Command="{Binding SaveCommand}"
+            Text="Apply Color"
+            Style="{StaticResource RoundedLongButtonStyle}"
+            BackgroundColor="{Binding SelectedColor.PrimaryColor}"
+            TextColor="{Binding SelectedColor.PrimaryColor, Converter={StaticResource ColorToBlackWhiteConverter}}"
+            />
+    </Grid>
+
+</ContentPage>
